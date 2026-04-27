@@ -3,27 +3,25 @@ name: Android Build CI
 on:
   push:
     branches: [main]
-    pull_request: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      # Checkout Code
       - name: Checkout Repository
-      - uses: action/checkout@v4
+        uses: actions/checkout@v4
 
-      # Setup JDK
       - name: Set up JDK 11
-      - uses: action/setup-java@v4
-      - with:
+        uses: actions/setup-java@v4
+        with:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
 
       - name: Grant execute permission for gradlew
-      - run: chmod +x gradlew
+        run: chmod +x gradlew
 
       - name: Cache Gradle packages
         uses: actions/cache@v3
@@ -39,7 +37,7 @@ jobs:
         run: ./gradlew assembleDebug
 
       - name: Upload Debug APK
-        uses: action/upload-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           name: app-debug
           path: app/build/outputs/apk/debug/*.apk
@@ -57,4 +55,3 @@ jobs:
           SIGNING_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           SIGNING_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
-
