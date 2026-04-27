@@ -1,0 +1,20 @@
+# Hasil build
+/build
+/app/build
+
+# Cache Gradle
+.gradle
+*.gradle.kts.dsl
+
+# File lokal
+local.properties
+
+# Keystore - JANGAN PERNAH COMMIT
+*.jks
+*.keystore
+keystore_base64.txt
+
+# IDE
+.idea/
+*.iml
+.DS_Store
